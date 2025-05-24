@@ -28,6 +28,7 @@ onAuthStateChanged(auth, (user) => {
   const loggedInUserId = localStorage.getItem("loggedInUserId");
   if (loggedInUserId) {
     console.log(user);
+    console.log(db);
     const docRef = doc(db, "users", loggedInUserId);
     console.log(docRef);
     getDoc(docRef)

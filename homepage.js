@@ -27,21 +27,20 @@ const db = getFirestore();
 onAuthStateChanged(auth, (user) => {
   const loggedInUserId = localStorage.getItem("loggedInUserId");
   if (loggedInUserId) {
-    console.log(user);
-    console.log(db);
     const docRef = doc(db, "users", loggedInUserId);
-    console.log(docRef);
     getDoc(docRef)
       .then((docSnap) => {
-        console.log(docSnap)
         if (docSnap.exists()) {
           const userData = docSnap.data();
           document.getElementById("loggedUserFName").innerText =
             userData.firstName;
           document.getElementById("loggedUserEmail").innerText = userData.email;
-          document.getElementById("loggedUserLName").innerText =
-            userData.lastName;
+          /* document.getElementById("loggedUserLName").innerText =
+            userData.lastName; */
         } else {
+          document.getElementById("loggedUserFName").innerText =
+            user.displayName;
+          document.getElementById("loggedUserEmail").innerText = user.email;
           console.log("no document found matching id");
         }
       })

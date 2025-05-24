@@ -3,6 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import {
   getFirestore,
@@ -91,4 +93,28 @@ signIn.addEventListener("click", (event) => {
         showMessage("Account does not Exist", "signInMessage");
       }
     });
+});
+
+const signInGmail = document.getElementById("submitGoogleLogin");
+signInGmail.addEventListener("click", (event) => {
+  event.preventDefault();
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((userCredential) => {
+      showMessage("login is successful", "signInMessage");
+      const user = userCredential.user;
+      localStorage.setItem("loggedInUserId", user.uid);
+      window.location.href = "homepage.html";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      if (errorCode === "auth/invalid-credential") {
+        showMessage("Incorrect Email or Password", "signInMessage");
+      } else {
+        showMessage("Account does not Exist", "signInMessage");
+      }
+    });
+  console.log("Google clicked");
 });

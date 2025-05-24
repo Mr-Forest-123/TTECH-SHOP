@@ -11,13 +11,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDOOQwq7E_oRT1fQkohW3PP1zKqNb7ItKU",
-    authDomain: "donbosco-proyect.firebaseapp.com",
-    projectId: "donbosco-proyect",
-    storageBucket: "donbosco-proyect.firebasestorage.app",
-    messagingSenderId: "598295956959",
-    appId: "1:598295956959:web:428b5f7f8b88e381f6886a"
-  };
+  apiKey: "AIzaSyC6u9Xp-_XHBOD-p5T6OR87CjcBpwP5H0o",
+  authDomain: "ttech-shop.firebaseapp.com",
+  projectId: "ttech-shop",
+  storageBucket: "ttech-shop.firebasestorage.app",
+  messagingSenderId: "200212054285",
+  appId: "1:200212054285:web:96aad7abd806eae7577044",
+};
 
 const app = initializeApp(firebaseConfig);
 

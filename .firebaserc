@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "donbosco-proyect"
-  }
+    "default": "ttech-shop"
+  },
+  "targets": {},
+  "etags": {}
 }

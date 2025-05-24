@@ -29,8 +29,10 @@ onAuthStateChanged(auth, (user) => {
   if (loggedInUserId) {
     console.log(user);
     const docRef = doc(db, "users", loggedInUserId);
+    console.log(docRef);
     getDoc(docRef)
       .then((docSnap) => {
+        console.log(docSnap)
         if (docSnap.exists()) {
           const userData = docSnap.data();
           document.getElementById("loggedUserFName").innerText =

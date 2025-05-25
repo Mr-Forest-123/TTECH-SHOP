@@ -122,15 +122,32 @@ signInGmail.addEventListener("click", (event) => {
 const signInFacebook = document.getElementById("submitFacebookLogin");
 signInFacebook.addEventListener("click", (event) => {
   event.preventDefault();
-  const auth = getAuth();
+  const auth = getAuth(app);
   const provider = new FacebookAuthProvider();
 
   signInWithPopup(auth, provider)
     .then((userCredential) => {
-      showMessage("login is successful", "signInMessage");
       const user = userCredential.user;
+      const additionalInfo = getAdditionalUserInfo(userCredential);
+      
+      if (
+        additionalInfo.isNewUser === false &&
+        additionalInfo.profile &&
+        userCredential._tokenResponse.needConfirmation
+      ) {
+        showMessage(
+          "Ya existe una cuenta con este correo electrónico registrada con otro proveedor. Por favor, inicia sesión con ese proveedor o vincula las cuentas.",
+          "signInMessage"
+        );
+        return;
+      }
+
+      console.log("Login exitoso:", user);
       localStorage.setItem("loggedInUserId", user.uid);
-      window.location.href = "homepage.html";
+      showMessage("login is successful", "signInMessage");
+      setTimeout(() => {
+        window.location.href = "homepage.html";
+      }, 1000);
     })
     .catch((error) => {
       const errorCode = error.code;

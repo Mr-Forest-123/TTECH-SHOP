@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import {
   getFirestore,
@@ -116,5 +117,27 @@ signInGmail.addEventListener("click", (event) => {
         showMessage("Account does not Exist", "signInMessage");
       }
     });
-  console.log("Google clicked");
+});
+
+const signInFacebook = document.getElementById("submitFacebookLogin");
+signInFacebook.addEventListener("click", (event) => {
+  event.preventDefault();
+  const auth = getAuth();
+  const provider = new FacebookAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((userCredential) => {
+      showMessage("login is successful", "signInMessage");
+      const user = userCredential.user;
+      localStorage.setItem("loggedInUserId", user.uid);
+      window.location.href = "homepage.html";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      if (errorCode === "auth/invalid-credential") {
+        showMessage("Incorrect Email or Password", "signInMessage");
+      } else {
+        showMessage("Account does not Exist", "signInMessage");
+      }
+    });
 });
